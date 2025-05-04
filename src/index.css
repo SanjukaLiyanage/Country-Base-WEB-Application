@@ -1,0 +1,387 @@
+/* Global styles to make the app take up the full window */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Light Mode Variables (default) */
+:root {
+  --bg-primary: #dadada;
+  --bg-secondary: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --hover-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  --border-color: #e9ecef;
+  --primary-color: #0d6efd;
+  --secondary-color: #f50057;
+  --border-radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Dark Mode Variables */
+.dark-mode, [data-theme="dark"] {
+  --bg-primary: #1a1c23;
+  --bg-secondary: #252836;
+  --text-primary: #eef1fb;
+  --text-secondary: #a9b1d6;
+  --card-bg: #252836;
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  --hover-shadow: 0 10px 20px rgba(0,0,0,0.6);
+  --border-color: #343a55;
+  --primary-color: #7aa2f7;
+  --secondary-color: #f78faa;
+  --border-radius: 12px;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Reset the default margin and padding from the app container */
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the main content area take remaining vertical space */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+  transition: var(--transition);
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  transition: var(--transition);
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: inherit;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: #0a58ca;
+  transform: translateY(-2px);
+}
+
+h1 {
+  font-size: 2.2em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+/* Remove default button styles to let Material-UI handle them */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Material UI TextField Focus Colors */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary-color) !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.8em;
+  }
+}
+
+/* Add styles for consistent card appearance */
+.MuiCard-root {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: var(--transition) !important;
+  border-radius: var(--border-radius) !important;
+  overflow: hidden !important;
+}
+
+.MuiCardMedia-root {
+  object-fit: cover !important;
+  object-position: center !important;
+  height: 220px !important;
+  width: 100% !important;
+  transition: transform 0.5s ease !important;
+}
+
+.MuiCard-root:hover .MuiCardMedia-root {
+  transform: scale(1.05);
+}
+
+/* Theme transition effects */
+.MuiPaper-root, .MuiAppBar-root, .MuiCard-root, .MuiCardContent-root, .MuiTypography-root {
+  transition: var(--transition) !important;
+}
+
+/* Three-column card layout */
+.countries-grid {
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px !important;
+  gap: 24px !important;
+}
+
+.countries-grid .MuiGrid-item {
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0 !important;
+}
+
+/* Force exactly 3 cards per row on desktop */
+@media (min-width: 1200px) {
+  .countries-grid .MuiGrid-item {
+    flex: 0 0 calc(33.3333% - 24px) !important;
+    max-width: calc(33.3333% - 24px) !important;
+  }
+}
+
+/* Two cards per row on medium screens */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .countries-grid .MuiGrid-item {
+    flex: 0 0 calc(50% - 24px) !important;
+    max-width: calc(50% - 24px) !important;
+  }
+}
+
+/* One card per row on small screens */
+@media (max-width: 899px) {
+  .countries-grid .MuiGrid-item {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.countries-grid .MuiCard-root {
+  transition: transform 0.3s, box-shadow 0.3s !important;
+  flex: 1;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background-color: var(--card-bg) !important;
+  box-shadow: var(--card-shadow) !important;
+  position: relative;
+}
+
+.countries-grid .MuiCard-root:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--hover-shadow) !important;
+}
+
+/* Force consistent width for typography elements */
+.MuiCardContent-root {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 24px !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiCardContent-root .MuiTypography-root {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiCardContent-root .MuiTypography-colorTextSecondary {
+  color: var(--text-secondary) !important;
+}
+
+/* Dark mode specific UI adjustments */
+.dark-mode .MuiAppBar-root, [data-theme="dark"] .MuiAppBar-root {
+  background-color: #242736 !important;
+}
+
+/* Theme toggle animation */
+.theme-toggle-icon {
+  animation: spin 0.5s ease-in-out;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom loader */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--border-color);
+  border-bottom-color: var(--primary-color);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Navbar improvements */
+.MuiAppBar-root {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.dark-mode .MuiAppBar-root {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Button styling */
+.MuiButton-root {
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  transition: all 0.3s !important;
+}
+
+.MuiButton-root:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* Form styling */
+.MuiTextField-root {
+  margin-bottom: 16px !important;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 8px !important;
+}
+
+/* Country detail page */
+.country-detail-container {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin: 32px;
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+.country-flag-large {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Login and Register form styles */
+.auth-form-container {
+  max-width: 450px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 32px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.dark-mode .auth-form-container {
+  border: 1px solid var(--border-color);
+  background: linear-gradient(145deg, #232735, #282d3e);
+}
+
+.auth-form-title {
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.auth-form-button {
+  margin-top: 16px !important;
+  width: 100%;
+  background: linear-gradient(45deg, var(--primary-color), #0dcaf0) !important;
+}
+
+.dark-mode .auth-form-button {
+  background: linear-gradient(45deg, #7aa2f7, #86e1ff) !important;
+  color: #1a1c23 !important;
+  }
+
+.auth-form-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  color: var(--primary-color);
+}
+
+.server-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  }
+
+.dark-mode .server-status {
+  background-color: rgba(25, 135, 84, 0.2);
+  color: #60d394;
+}
+
+.auth-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--primary-color), #0dcaf0);
+  color: white;
+}
+
+.dark-mode .auth-icon {
+  background: linear-gradient(145deg, #7aa2f7, #86e1ff);
+  box-shadow: 0 4px 15px rgba(122, 162, 247, 0.3);
+  }
+
+.dark-mode .MuiFormLabel-root {
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .MuiInputBase-input {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border-color) !important;
+}
+
+.dark-mode .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary-color) !important;
+}
+
