@@ -13,7 +13,7 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Middleware
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: process.env.NODE_ENV === 'production' ? [/\.vercel\.app$/, /localhost/] : CLIENT_URL,
   credentials: true
 }));
 app.use(express.json());
@@ -22,10 +22,7 @@ console.log('Starting server...');
 console.log('Attempting to connect to MongoDB Atlas...');
 
 // Connect to MongoDB Atlas
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(MONGODB_URI)
   .then(() => console.log('Connected to MongoDB Atlas successfully'))
   .catch(err => {
     console.error('MongoDB Atlas connection error:', err);

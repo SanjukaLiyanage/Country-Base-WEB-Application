@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "start": "vite",
     "server": "node -r dotenv/config src/backend/server.js",
-    "start-all": "concurrently \"npm run server\" \"npm run start\""
+    "start-all": "concurrently \"npm run server\" \"npm run start\"",
+    "vercel-build": "vite build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
