@@ -5,6 +5,10 @@ import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+// Define JWT_SECRET globally so it's accessible in route handlers
+const JWT_SECRET = process.env.JWT_SECRET || 'countries-app-secret-key';
+global.JWT_SECRET = JWT_SECRET;
+
 // Function to initialize routes - for Vercel serverless
 const initializeRoutes = (app) => {
   // User Schema
@@ -230,7 +234,6 @@ const initializeRoutes = (app) => {
 
 // Constants
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'countries-app-secret-key';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://user1:user1@afassignment.sdwzpdb.mongodb.net/?retryWrites=true&w=majority&appName=AFAssignment';
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 

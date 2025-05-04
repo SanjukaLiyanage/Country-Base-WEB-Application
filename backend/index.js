@@ -20,6 +20,19 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Add explicit root routes
+app.get('/', (req, res) => {
+  res.json({ message: 'Country Base API is running' });
+});
+
+app.get('/api', (req, res) => {
+  res.json({ message: 'API endpoint root' });
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API test endpoint is working!' });
+});
+
 // Database connection
 const connectDB = async () => {
   try {
