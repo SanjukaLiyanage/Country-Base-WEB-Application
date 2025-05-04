@@ -11,14 +11,19 @@ global.JWT_SECRET = JWT_SECRET;
 
 // Function to initialize routes - for Vercel serverless
 const initializeRoutes = (app) => {
+  // Log the start of route initialization
+  console.log('Initializing routes for server.js...');
+  
+  // Define schemas with non-strict mode to be more forgiving
   // User Schema
   const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
-  });
+  }, { strict: false });
 
-  const User = mongoose.model('User', userSchema);
+  // Try to get existing User model, otherwise create new one (prevents model duplication errors)
+  const User = mongoose.models.User || mongoose.model('User', userSchema);
 
   // Favorite Schema
   const favoriteSchema = new mongoose.Schema({
@@ -43,18 +48,35 @@ const initializeRoutes = (app) => {
       type: Date, 
       default: Date.now 
     }
-  });
+  }, { strict: false });
 
   // Compound index to prevent duplicate favorites
   favoriteSchema.index({ userId: 1, countryCode: 1 }, { unique: true });
 
-  const Favorite = mongoose.model('Favorite', favoriteSchema);
+  // Try to get existing Favorite model, otherwise create new one
+  const Favorite = mongoose.models.Favorite || mongoose.model('Favorite', favoriteSchema);
 
-  // Register endpoint
+  // Basic test route to verify schemas and models
+  app.get('/api/model-test', (req, res) => {
+    res.json({
+      models: {
+        user: !!mongoose.models.User,
+        favorite: !!mongoose.models.Favorite
+      },
+      jwt_secret: !!JWT_SECRET,
+      mongoose_connected: mongoose.connection.readyState === 1
+    });
+  });
+
+  // Register endpoint with better error handling
   app.post('/api/register', async (req, res) => {
     try {
       console.log('Registration request received:', req.body);
       const { username, email, password } = req.body;
+      
+      if (!username || !email || !password) {
+        return res.status(400).json({ message: 'Please provide username, email and password' });
+      }
       
       // Check if user already exists
       const existingUser = await User.findOne({ $or: [{ email }, { username }] });
@@ -82,15 +104,19 @@ const initializeRoutes = (app) => {
       res.status(201).json({ token, user: { id: user._id, username, email } });
     } catch (error) {
       console.error('Registration error:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
   });
 
-  // Login endpoint
+  // Login endpoint with better error handling
   app.post('/api/login', async (req, res) => {
     try {
       console.log('Login request received:', req.body.username);
       const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: 'Please provide username and password' });
+      }
       
       // Check if user exists
       const user = await User.findOne({ username });
@@ -112,7 +138,7 @@ const initializeRoutes = (app) => {
       res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
     } catch (error) {
       console.error('Login error:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
   });
 

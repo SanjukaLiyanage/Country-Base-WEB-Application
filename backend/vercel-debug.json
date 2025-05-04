@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "debug-api.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/debug-api.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+} 
