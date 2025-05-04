@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../config/apiConfig';
 
-const API_URL = 'http://localhost:5000';
+// Use API_URL from config instead of hardcoded value
+// const API_URL = 'http://localhost:5000';
 
 // Get token from localStorage
 const getToken = () => {
@@ -15,7 +17,7 @@ export const getUserFavorites = async () => {
       throw new Error('No authentication token found');
     }
 
-    const response = await axios.get(`${API_URL}/api/favorites`, {
+    const response = await axios.get(`${API_BASE_URL}/api/favorites`, {
       headers: {
         'auth-token': token
       }
@@ -42,7 +44,7 @@ export const addToFavorites = async (country) => {
       flagUrl: country.flags.png || country.flag
     };
 
-    const response = await axios.post(`${API_URL}/api/favorites`, favoriteData, {
+    const response = await axios.post(`${API_BASE_URL}/api/favorites`, favoriteData, {
       headers: {
         'auth-token': token
       }
@@ -63,7 +65,7 @@ export const removeFromFavorites = async (countryCode) => {
       throw new Error('No authentication token found');
     }
 
-    const response = await axios.delete(`${API_URL}/api/favorites/${countryCode}`, {
+    const response = await axios.delete(`${API_BASE_URL}/api/favorites/${countryCode}`, {
       headers: {
         'auth-token': token
       }
@@ -84,7 +86,7 @@ export const isCountryFavorite = async (countryCode) => {
       return false;
     }
 
-    const response = await axios.get(`${API_URL}/api/favorites/${countryCode}`, {
+    const response = await axios.get(`${API_BASE_URL}/api/favorites/${countryCode}`, {
       headers: {
         'auth-token': token
       }

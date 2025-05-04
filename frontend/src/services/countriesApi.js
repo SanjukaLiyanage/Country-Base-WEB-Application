@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { COUNTRIES_API_URL } from '../config/apiConfig';
 
-const API_URL = 'https://restcountries.com/v3.1';
+// Use API URL from config
+const API_URL = COUNTRIES_API_URL;
 
 // Get all countries
 export const getAllCountries = async () => {

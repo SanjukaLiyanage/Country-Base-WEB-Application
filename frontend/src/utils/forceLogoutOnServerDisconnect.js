@@ -4,9 +4,10 @@
  * This script is used to detect if the server is offline and force logout
  * the user by clearing their authentication data from localStorage.
  */
+import { API_BASE_URL } from '../config/apiConfig';
 
-// API base URL - using only local development URL
-const API_BASE_URL = 'http://localhost:5000';
+// API base URL from config
+// const API_BASE_URL = 'http://localhost:5000';
 
 // Check server status and logout if offline
 export const checkServerAndLogoutIfOffline = async () => {

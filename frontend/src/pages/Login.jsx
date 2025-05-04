@@ -18,9 +18,10 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
+import { API_BASE_URL } from '../config/apiConfig';
 
-// API base URL - using only local development URL
-const API_BASE_URL = 'http://localhost:5000';
+// API base URL now imported from config
+// const API_BASE_URL = 'http://localhost:5000';
 
 const Login = () => {
   const [username, setUsername] = useState('');
