@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "vite",
-    "server": "node -r dotenv/config src/backend/server.js",
+    "server": "node -r dotenv/config backend/server.js",
     "start-all": "concurrently \"npm run server\" \"npm run start\"",
     "vercel-build": "vite build"
   },

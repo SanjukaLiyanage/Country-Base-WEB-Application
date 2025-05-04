@@ -13,7 +13,9 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? [/\.vercel\.app$/, /localhost/] : CLIENT_URL,
+  origin: process.env.NODE_ENV === 'production' 
+    ? [/\.vercel\.app$/, /localhost/] 
+    : [/localhost:\d+$/],
   credentials: true
 }));
 app.use(express.json());
